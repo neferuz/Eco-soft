@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeBeNino Kids</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .nav-top__btn {
+            text-decoration: none;
+        }
+
+        :root {
+            --gap: 32px;
+            --accent: #000;
+            --hover: #1c1c1c;
+            --brand: #000000;
+            --f: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--f);
+        }
+
+        body {
+            color: #000;
+            background: #ffffff !important;
+            line-height: 1.35;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ---------- header ---------- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #fffcf8;
+            border-bottom: 1px solid #9e9e9e;
+        }
+
+        .header__row {
+            max-width: 1440px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 0 var(--gap);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+            position: relative;
+        }
+
+        .nav-top {
+            display: flex;
+            gap: var(--gap);
+        }
+
+        .nav-top__btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            letter-spacing: 1px;
+            color: var(--accent);
+            position: relative;
+        }
+
+        .nav-top__btn:hover::after,
+        .nav-top__btn.is-active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .nav-top__btn:hover {
+            color: var(--hover);
+        }
+
+        .brand {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            display: block;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .brand span {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 4px;
+            font-weight: 400;
+        }
+
+        .search {
+            position: relative;
+            width: 240px;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 10px 36px 10px 40px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .search i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 18px;
+        }
+
+        /* ---------- level‑2 ---------- */
+        .subnav {
+            border-top: 1px solid #848484;
+        }
+
+        .subnav__list {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 10px var(--gap);
+            display: flex;
+            text-decoration: none;
+            gap: 32px;
+            background-color: #fff;
+            list-style: none;
+        }
+
+        .subnav__link {
+            text-decoration: none;
+            color: #0e0e0e;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .subnav__link:hover,
+        .subnav__link.is-active {
+            color: var(--accent);
+        }
+
+        /* ---------- mega ---------- */
+        .mega {
+            display: none;
+            position: absolute;
+            text-decoration: none;
+            left: 0;
+            right: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            top: 100%;
+            background: #ffffff;
+            line-height: 1.35;
+            border-bottom: 1px solid #828282;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .05);
+        }
+
+        .mega.show {
+            display: block;
+        }
+
+        .mega__wrap {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 15px var(--gap);
+            display: flex;
+            gap: 64px;
+            position: relative;
+        }
+
+        .mega__col {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .mega__col h4 {
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .mega__col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mega__col a {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 15px;
+            position: relative;
+        }
+
+        .mega__col a:hover {
+            color: var(--hover);
+        }
+
+        .has-child::after {
+            content: '\f105';
+            font-weight: 400;
+            position: absolute;
+            right: -14px;
+            top: 0;
+            font-size: 12px;
+        }
+
+        /* level‑4 */
+        .mega-lvl2 {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 260px;
+            height: 100%;
+            background: #fff;
+            border-left: 1px solid #848484;
+            padding: 32px var(--gap);
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mega-lvl2 h5 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .mega-lvl2 a {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 15px;
+        }
+
+        .mega-lvl2 a:hover {
+            color: var(--hover);
+        }
+
+        /* ---------- image block ---------- */
+        .mega__img {
+            flex: 0 0 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            margin-top: 10px;
+        }
+
+        .mega__img img {
+            width: 220px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .mega__caption {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #222;
+            font-weight: 500;
+            margin-top: 18px;
+            gap: 10px;
+        }
+
+        .mega__caption-arrow {
+            display: inline-block;
+            font-size: 22px;
+            margin-right: 8px;
+            transform: translateY(2px);
+        }
+
+        .mega__shop {
+            text-decoration: none;
+            font-size: 16px;
+            color: var(--accent);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mega__shop i {
+            transform: rotate(-45deg);
+        }
+
+        /* ---------- burger ---------- */
+        .burger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--accent);
+        }
+
+        @media (max-width:767px) {
+
+            .nav-top,
+            .search,
+            .subnav,
+            .mega {
+                display: none !important;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .header__row {
+                height: 60px;
+            }
+        }
+
+        /* ---------- mobile menu ---------- */
+        .m-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .4);
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+            z-index: 140;
+        }
+
+        .m-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .m-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 340px;
+            height: 100%;
+            background: #fff;
+            box-shadow: 2px 0 12px rgba(0, 0, 0, .1);
+            overflow-y: auto;
+            transition: left .3s ease;
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .m-menu.is-open {
+            left: 0;
+        }
+
+        .m-menu__head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .m-menu__head h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .m-close {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--accent);
+        }
+
+        .m-acc {
+            border-bottom: 1px solid #eee;
+        }
+
+        .m-acc summary {
+            list-style: none;
+            padding: 16px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .m-acc summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .m-acc ul {
+            padding: 0 26px 12px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .m-acc a {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 15px;
+        }
+
+        .m-acc a:hover {
+            color: var(--hover);
+        }
+
+        .noscroll {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            /* border-radius: 5px; */
+            width: 240px;
+            /* box-shadow: 0 2px 8px rgba(0,0,0,0.04); */
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-card:hover {
+            /* box-shadow: 0 6px 24px rgba(0,0,0,0.10); */
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #f7f7f7;
+        }
+
+        .product-title {
+            font-size: 17px;
+            font-weight: 500;
+            margin: 12px 0 4px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            color: #222;
+        }
+
+        .product-price {
+            font-size: 16px;
+            color: #222;
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+
+        /* ---------- mega-menu современный стиль ---------- */
+        .mega__wrap {
+            gap: 48px !important;
+        }
+
+        .mega__col {
+            min-width: 180px;
+        }
+
+        .mega__title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .mega__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mega__item {
+            font-size: 17px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .mega__sublist {
+            list-style: disc;
+            margin: 4px 0 0 18px;
+            padding: 0;
+            color: #888;
+        }
+
+        .mega__subitem {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 900px) {
+            .mega__wrap {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 24px !important;
+            }
+
+            .mega__col {
+                min-width: 140px;
+            }
+        }
+
+        .mega__subline {
+            color: #888;
+            font-size: 14px;
+            margin-left: 0;
+            margin-top: 2px;
+            display: block;
+            font-weight: 400;
+        }
+
+        .mega__sublink {
+            color: #888;
+            font-size: 14px;
+            display: flex;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 400;
+        }
+
+        .mega__sublink:hover {
+            color: #222;
+            text-decoration: underline;
+        }
+
+        .categories-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .categories-list li {
+            font-size: 17px;
+            color: #222;
+            margin-bottom: 7px;
+            line-height: 1.5;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .categories-list li:hover {
+            color: #0070f3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header__row">
+            <button class="burger" id="burger"><i class="fa-solid fa-bars"></i></button>
+
+            <nav class="nav-top" id="navTop"></nav>
+
+            <a href="#" class="brand"><img style="text-align: center; justify-content: center;" width="180px"
+                    src="https://tourmaline-twilight-0044d0.netlify.app/logo0b.png" alt=""></a>
+
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" placeholder="Search">
+            </div>
+        </div>
+
+        <nav class="subnav">
+            <ul class="subnav__list" id="subnavList"></ul>
+        </nav>
+
+        <div class="mega" id="mega">
+            <div class="mega__wrap" id="megaWrap"></div>
+        </div>
+    </header>
+
+    <!-- mobile -->
+    <div class="m-overlay" id="mOverlay"></div>
+    <nav class="m-menu" id="mMenu">
+        <div class="m-menu__head">
+            <h3>Menu</h3>
+            <button class="m-close" id="mClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="mContent"></div>
+    </nav>
+    <main>
+        <h1 style="font-weight: 400; text-align:center; margin: 40px 0 24px;">Kids' Collection</h1>
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto 24px auto; padding: 0 16px;">
+            <div id="items-count" style="font-size: 18px; color: #222; font-weight: 500;">0 Items</div>
+            <button id="openFilter"
+                style="display: flex; align-items: center; gap: 8px; background: none; border: 1px solid #ddd; border-radius: 6px; padding: 8px 18px; font-size: 16px; cursor: pointer;">
+                <i class="fa-solid fa-sliders"></i> Filter and sort
+            </button>
+        </div>
+        <div id="filterPanel"
+            style="position: fixed; top: 0; right: -400px; width: 340px; height: 100vh; background: #fff; box-shadow: -2px 0 16px #0002; z-index: 2000; transition: right 0.3s; padding: 32px 24px 24px 24px; overflow-y: auto;">
+            <button id="closeFilter"
+                style="position: absolute; top: 18px; right: 18px; background: none; border: none; font-size: 22px; cursor: pointer; color: #222;"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <h2 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 24px;">Filter & Sort</h2>
+            <div style="margin-bottom: 24px;">
+                <label style="font-weight: 500;">Sort by:</label><br>
+                <select id="sortSelect" style="margin-top: 8px; width: 100%; padding: 8px; font-size: 15px;">
+                    <option value="default">Default</option>
+                    <option value="price_asc">Price: Low to High</option>
+                    <option value="price_desc">Price: High to Low</option>
+                    <option value="newest">Newest</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 24px;">
+                <label style="font-weight: 500;">Price range:</label><br>
+                <input type="number" id="minPrice" placeholder="Min"
+                    style="width: 45%; padding: 6px; margin-right: 8px;"> -
+                <input type="number" id="maxPrice" placeholder="Max" style="width: 45%; padding: 6px;">
+            </div>
+            <button id="applyFilter"
+                style="width: 100%; background: #000000; color: #fff; border: none; border-radius: 6px; padding: 12px 0; font-size: 16px; font-weight: 600; cursor: pointer;">Apply</button>
+        </div>
+        <div id="filterOverlay"
+            style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.25); z-index:1999;"></div>
+        <div style="display: flex; max-width: 1200px; margin: 0 auto; align-items: flex-start; gap: 40px;">
+
+            <div id="products-grid" class="products-grid" style="flex:1;"></div>
+        </div>
+    </main>
+    <script>
+        /* ---------- DATA ---------- */
+        let menuData = {};
+
+        /* ---------- DOM ---------- */
+        const subnav = document.getElementById('subnavList');
+        const navTopBtns = document.querySelectorAll('.nav-top__btn');
+        const mega = document.getElementById('mega');
+        const megaWrap = document.getElementById('megaWrap');
+
+        /* ---------- helpers ---------- */
+        async function loadMenuData() {
+            try {
+                const response = await fetch('http://localhost:8001/api/shop-menu/');
+                menuData = await response.json();
+                console.log('Loaded menu data:', menuData); // Отладочная информация
+                renderNavTop();
+                renderSub('kids');
+                buildMobile();
+            } catch (error) {
+                console.error('Error loading menu data:', error);
+            }
+        }
+
+        // Загружаем данные при загрузке страницы
+        loadMenuData();
+
+        function renderSub(cat) {
+            if (!menuData[cat]) return;
+            subnav.innerHTML = menuData[cat].list.map(txt => {
+                return `<li><a href="#" class="subnav__link" data-sub="${txt}">${txt}</a></li>`;
+            }).join('');
+            // Показываем первую подкатегорию в sidebar
+            if (menuData[cat].subcategories && menuData[cat].subcategories.length > 0) {
+                renderSidebar(cat, menuData[cat].subcategories[0].name);
+            }
+        }
+
+        function buildLvl2(label, children) {
+            console.log('buildLvl2 children:', children);
+            let lvl2 = document.getElementById('megaLvl2');
+            if (!lvl2) {
+                lvl2 = document.createElement('div');
+                lvl2.id = 'megaLvl2';
+                lvl2.className = 'mega-lvl2';
+                megaWrap.appendChild(lvl2);
+            }
+
+            // Универсально: разбиваем элементы массива, если внутри есть запятые
+            let items = [];
+            if (Array.isArray(children)) {
+                items = children.flatMap(item =>
+                    typeof item === 'string' && item.includes(',')
+                        ? item.split(',').map(s => s.trim()).filter(Boolean)
+                        : [item && typeof item === 'string' ? item.trim() : item]
+                );
+            } else if (typeof children === 'string') {
+                items = children.split(',').map(s => s.trim()).filter(Boolean);
+            } else if (children) {
+                items = [String(children)];
+            }
+
+            lvl2.innerHTML = `
+                <div style="font-size:20px;font-weight:700;margin-bottom:10px;">${label}</div>
+                <ul class="categories-list" style="margin:0;padding:0;list-style:none;">
+                    ${items.map(c => `<li style='margin:0 0 2px 0;padding:0;font-size:17px;color:#222;'>${c}</li>`).join('')}
+                </ul>
+            `;
+            lvl2.style.display = 'flex';
+        }
+
+        function hideLvl2() {
+            const lvl2 = document.getElementById('megaLvl2');
+            if (lvl2) lvl2.style.display = 'none';
+        }
+
+        function renderMega(cat, key) {
+            // Найди нужную подкатегорию по key
+            const subcategory = menuData[cat].subcategories.find(sub => sub.name === key);
+            if (!subcategory) { mega.classList.remove('show'); return; }
+
+            // Список под-подкатегорий
+            let subsub = subcategory.subsubcategories || [];
+            // Если subsub — массив объектов, разбиваем name по запятой, если надо
+            subsub = subsub.flatMap(ss => {
+                if (typeof ss.name === 'string' && ss.name.includes(',')) {
+                    return ss.name.split(',').map(n => ({ ...ss, name: n.trim() }));
+                }
+                return ss;
+            });
+
+            megaWrap.innerHTML = `
+                <div class="mega__col">
+                    <ul class="mega__list">
+                        ${subsub.map(ss => {
+                const subsubs = (ss.subsubsubcategories && ss.subsubsubcategories.length > 0)
+                    ? `<div class='mega__subline'>${ss.subsubsubcategories.map(sss => `<a href='/category-products/?subsubcat_id=${sss.id}&subsubcat_name=${encodeURIComponent(sss.name)}' class='mega__sublink'>${sss.name}</a>`).join('')}</div>`
+                    : '';
+                return `<li class="mega__item">${ss.name}${subsubs}</li>`;
+            }).join('')}
+                    </ul>
+                </div>
+            `;
+
+            // Картинка и caption справа
+            if (subcategory.image) {
+                megaWrap.insertAdjacentHTML('beforeend', `
+                    <div class="mega__img">
+                        <img src="${subcategory.image}" alt="${subcategory.name}">
+                        <div class="mega__caption">
+                            <span class="mega__caption-arrow">&#8594;</span>
+                            ${subcategory.caption || 'Shop now'}
+                        </div>
+                    </div>
+                `);
+            }
+
+            mega.classList.add('show');
+        }
+
+        /* ---------- level‑1 events ---------- */
+        navTopBtns.forEach(btn => {
+            btn.onclick = () => {
+                document.querySelector('.nav-top__btn.is-active').classList.remove('is-active');
+                btn.classList.add('is-active');
+                renderSub(btn.dataset.cat);
+                mega.classList.remove('show');
+            };
+        });
+
+        /* ---------- level‑2 events (горизонтальное меню) ---
+        subnav.addEventListener('mouseover', e => {
+            const l = e.target.closest('.subnav__link');
+            if (l) {
+                renderMega('kids', l.dataset.sub);
+            }
+        });
+
+        // --- level‑3 → level‑4 events (mega-меню) ---
+        megaWrap.addEventListener('mouseover', e => {
+            const link = e.target.closest('.has-child');
+            if (link) buildLvl2(link.textContent.trim(), JSON.parse(link.dataset.deep));
+        });
+
+        // Скрывать mega-меню при уходе мыши
+        mega.addEventListener('mouseleave', () => {
+            mega.classList.remove('show');
+            hideLvl2();
+        });
+
+        /* ---------- MOBILE ---------- */
+        const burger = document.getElementById('burger');
+        const mMenu = document.getElementById('mMenu');
+        const mOverlay = document.getElementById('mOverlay');
+        const mClose = document.getElementById('mClose');
+        const mContent = document.getElementById('mContent');
+        let startX = null;
+
+        function buildMobile() {
+            if (!menuData || Object.keys(menuData).length === 0) {
+                mContent.innerHTML = "<div style='padding:32px;'>Loading...</div>";
+                return;
+            }
+            mContent.innerHTML = Object.entries(menuData).map(([cat, val]) => {
+                const subcategories = val.subcategories || [];
+                const subItems = subcategories.map(subcat => {
+                    const subsub = subcat.subsubcategories || [];
+                    if (subsub.length > 0) {
+                        const subsubItems = subsub.map(ss => {
+                            const subsubs = (ss.subsubsubcategories && ss.subsubsubcategories.length > 0)
+                                ? `<ul style='margin:6px 0 0 18px;'>${ss.subsubsubcategories.map(sss => `<li><a href='/category-products/?subsubcat_id=${sss.id}&subsubcat_name=${encodeURIComponent(sss.name)}'>${sss.name}</a></li>`).join('')}</ul>`
+                                : '';
+                            return `<li><strong>${ss.name}</strong>${subsubs}</li>`;
+                        }).join('');
+                        let imgBlock = '';
+                        if (subcat.image) {
+                            imgBlock = `<div class='mega__img' style='margin:18px 0 0 0;text-align:center;'>
+                                <img src='${subcat.image}' alt='${subcat.name}' style='width:180px;max-width:90vw;border-radius:8px;margin-bottom:10px;'>
+                                <div class='mega__caption' style='font-size:16px;'><span class='mega__caption-arrow' style='font-size:20px;'>&#8594;</span>${subcat.caption || 'Shop now'}</div>
+                            </div>`;
+                        }
+                        return `<details class='m-acc'><summary>${subcat.name}</summary><ul>${subsubItems}</ul>${imgBlock}</details>`;
+                    } else {
+                        return `<li><a href='/category-products/?subcat_id=${subcat.id}&subcat_name=${encodeURIComponent(subcat.name)}'>${subcat.name}</a></li>`;
+                    }
+                }).join('');
+                // Категория всегда выводится, даже если subItems пустой
+                return `<details class='m-acc'><summary>${val.name ? val.name.toUpperCase() : cat.toUpperCase()}</summary><ul>${subItems}</ul></details>`;
+            }).join('');
+        }
+        buildMobile();
+
+        const openBurger = () => {
+            mMenu.classList.add('is-open');
+            mOverlay.classList.add('is-open');
+            document.body.classList.add('noscroll');
+        };
+        const closeBurger = () => {
+            mMenu.classList.remove('is-open');
+            mOverlay.classList.remove('is-open');
+            document.body.classList.remove('noscroll');
+        };
+
+        burger.onclick = openBurger;
+        mClose.onclick = closeBurger;
+        mOverlay.onclick = closeBurger;
+
+        mMenu.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+        mMenu.addEventListener('touchmove', e => {
+            if (startX !== null) {
+                const diff = e.touches[0].clientX - startX;
+                if (diff > 60) { closeBurger(); startX = null; }
+            }
+        });
+        mMenu.addEventListener('touchend', () => startX = null);
+
+        function getCategoryFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('category');
+        }
+
+        function renderNavTop() {
+            const navTop = document.getElementById('navTop');
+            navTop.innerHTML = '';
+
+            // HOME
+            const home = document.createElement('a');
+            home.className = 'nav-top__btn';
+            home.textContent = 'HOME';
+            home.href = '/';
+            navTop.appendChild(home);
+
+            // KIDS
+            const kids = document.createElement('a');
+            kids.className = 'nav-top__btn is-active';
+            kids.textContent = 'KIDS';
+            kids.href = '/kids/';
+            navTop.appendChild(kids);
+        }
+    </script>
+    <script>
+        let allProducts = [];
+        function renderProducts(products) {
+            const grid = document.getElementById('products-grid');
+            document.getElementById('items-count').textContent = products.length + ' Items';
+            grid.innerHTML = products.map(p => `
+                <div class="product-card" onclick="window.location.href='/product.html?id=${p.id}&from=kids'">
+                    <img src="${p.main_image}" alt="${p.title}">
+                    <div class="product-title">${p.title}</div>
+                    <div class="product-price">${p.price}</div>
+                </div>
+            `).join('');
+        }
+        function loadAllKidsProducts() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const subsubcatId = urlParams.get('subsubcat_id');
+            let url = 'http://localhost:8001/api/products/?gender=kids';
+            if (subsubcatId && subsubcatId !== 'undefined') {
+                url += `&subsubcat_id=${subsubcatId}`;
+            }
+            fetch(url)
+                .then(res => res.json())
+                .then(products => {
+                    allProducts = products;
+                    renderProducts(products);
+                })
+                .catch(error => {
+                    console.error('Error loading products:', error);
+                    const grid = document.getElementById('products-grid');
+                    grid.innerHTML = '<p>Error loading products. Please try again later.</p>';
+                });
+        }
+        // Фильтрация и сортировка
+        function applyFilters() {
+            let filtered = [...allProducts];
+            const minPrice = parseFloat(document.getElementById('minPrice').value);
+            const maxPrice = parseFloat(document.getElementById('maxPrice').value);
+            if (!isNaN(minPrice)) filtered = filtered.filter(p => parseFloat(p.price) >= minPrice);
+            if (!isNaN(maxPrice)) filtered = filtered.filter(p => parseFloat(p.price) <= maxPrice);
+            const sort = document.getElementById('sortSelect').value;
+            if (sort === 'price_asc') filtered.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+            if (sort === 'price_desc') filtered.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+            if (sort === 'newest') filtered = filtered.slice().reverse(); // Просто реверс, если нет даты
+            renderProducts(filtered);
+        }
+        // Открытие/закрытие фильтра
+        document.getElementById('openFilter').onclick = function () {
+            document.getElementById('filterPanel').style.right = '0';
+            document.getElementById('filterOverlay').style.display = 'block';
+        };
+        document.getElementById('closeFilter').onclick = function () {
+            document.getElementById('filterPanel').style.right = '-400px';
+            document.getElementById('filterOverlay').style.display = 'none';
+        };
+        document.getElementById('filterOverlay').onclick = function () {
+            document.getElementById('filterPanel').style.right = '-400px';
+            document.getElementById('filterOverlay').style.display = 'none';
+        };
+        document.getElementById('applyFilter').onclick = function () {
+            applyFilters();
+            document.getElementById('filterPanel').style.right = '-400px';
+            document.getElementById('filterOverlay').style.display = 'none';
+        };
+        // Загрузи товары при старте
+        loadAllKidsProducts();
+    </script>
+    <script>
+        // --- Sidebar logic ---
+        function renderSidebar(cat, subcat) {
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar) return;
+            const titleDiv = document.getElementById('sidebar-title');
+            const listDiv = document.getElementById('sidebar-list');
+            // Найти нужную подкатегорию
+            const category = menuData[cat];
+            if (!category) { sidebar.style.display = 'none'; return; }
+            const subcategory = category.subcategories.find(s => s.name === subcat);
+            if (!subcategory) { sidebar.style.display = 'none'; return; }
+            // 1. Вверху — название подкатегории обычным текстом
+            titleDiv.innerHTML = `<span style="font-size:1.3rem;font-weight:500;color:#222;">${subcategory.name}</span>`;
+            // 2. Список под-подкатегорий жирным и крупнее, под каждым — список под-под-подкатегорий
+            if (subcategory.subsubcategories && subcategory.subsubcategories.length > 0) {
+                listDiv.innerHTML = subcategory.subsubcategories.map(subsub => `
+                    <div style="margin-bottom:18px;">
+                        <div style="font-size:1.25rem;font-weight:800;margin-bottom:7px;">${subsub.name}</div>
+                        ${(subsub.subsubsubcategories && subsub.subsubsubcategories.length > 0)
+                        ? `<ul style='padding-left:12px;list-style:disc;color:#444;'>${subsub.subsubsubcategories.map(sss => `<li style='font-size:1.08rem;padding:3px 0;'>${sss.name}</li>`).join('')}</ul>`
+                        : `<div style='color:#aaa;font-size:1rem;'>Нет под-под-подкатегорий</div>`}
+                    </div>
+                `).join('');
+            } else {
+                listDiv.innerHTML = '<div style="color:#888;font-size:1rem;">Нет под-подкатегорий</div>';
+            }
+            sidebar.style.display = 'block';
+        }
+        // --- Пример вызова (замени на свой обработчик выбора под-подкатегории) ---
+        // renderSidebar('kids', 'Подкатегория', 'под под категория');
+    </script>
+    <script>
+        // После renderSub(cat) или после загрузки меню:
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('subnavList').addEventListener('click', function (e) {
+                const link = e.target.closest('.subnav__link');
+                if (!link) return;
+                e.preventDefault();
+                const cat = document.querySelector('.nav-top__btn.is-active').dataset.cat;
+                const subcat = link.dataset.sub;
+                renderSidebar(cat, subcat);
+            });
+        });
+    </script>
+    <script>
+        // --- level‑2 events (горизонтальное меню) ---
+        subnav.addEventListener('mouseover', e => {
+            const l = e.target.closest('.subnav__link');
+            if (l) {
+                renderMega('kids', l.dataset.sub);
+            }
+        });
+
+        // Скрывать mega-меню при уходе мыши
+        mega.addEventListener('mouseleave', () => {
+            mega.classList.remove('show');
+            hideLvl2();
+        });
+    </script>
+    <script>
+        // --- Стили для современного вертикального списка ---
+        const style = document.createElement('style');
+        style.innerHTML = `
+        .categories-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .categories-list li {
+            font-size: 17px;
+            color: #222;
+            margin-bottom: 7px;
+            line-height: 1.5;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .categories-list li:hover {
+            color: #0070f3;
+            text-decoration: underline;
+        }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

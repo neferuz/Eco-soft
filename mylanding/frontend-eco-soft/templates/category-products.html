@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>BIRRUTI {{ subsubcat_name }}</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+	<style>
+		.products-grid {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 32px;
+			justify-content: center;
+			margin-bottom: 60px;
+		}
+
+		.product-card {
+			background: #fff;
+			border: 1px solid #e0e0e0;
+			border-radius: 10px;
+			width: 240px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+			overflow: hidden;
+			transition: box-shadow 0.2s;
+			cursor: pointer;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.product-card:hover {
+			box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
+		}
+
+		.product-card img {
+			width: 100%;
+			height: 240px;
+			object-fit: cover;
+			background: #f7f7f7;
+		}
+
+		.product-title {
+			font-size: 17px;
+			font-weight: 500;
+			margin: 12px 0 4px;
+			text-align: center;
+			color: #222;
+		}
+
+		.product-price {
+			font-size: 16px;
+			color: #006838;
+			font-weight: 600;
+			margin-bottom: 14px;
+		}
+
+		@media (max-width: 600px) {
+			.products-grid {
+				gap: 16px;
+			}
+
+			.product-card {
+				width: 90vw;
+				min-width: 180px;
+				max-width: 98vw;
+			}
+
+			.product-card img {
+				height: 180px;
+			}
+		}
+
+		.nav-top__btn {
+			text-decoration: none;
+		}
+
+		:root {
+			--gap: 32px;
+			--accent: #000;
+			--hover: #1c1c1c;
+			--brand: #006838;
+			--f: 'Helvetica Neue', Arial, sans-serif;
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			font-family: var(--f);
+		}
+
+		body {
+			color: #000;
+			background: #fffcf8;
+			line-height: 1.35;
+			font-family: 'Helvetica Neue', Arial, sans-serif;
+			background: #fffcf8;
+			overflow-x: hidden;
+		}
+
+		/* ---------- header ---------- */
+		.header {
+			position: sticky;
+			top: 0;
+			z-index: 100;
+			background: #fffcf8;
+			border-bottom: 1px solid #9e9e9e;
+		}
+
+		.header__row {
+			max-width: 1440px;
+			margin: 0 auto;
+			padding: 0 var(--gap);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 80px;
+		}
+
+		.nav-top {
+			display: flex;
+			gap: var(--gap);
+		}
+
+		.nav-top__btn {
+			background: none;
+			border: none;
+			cursor: pointer;
+			font-size: 15px;
+			letter-spacing: 1px;
+			color: var(--accent);
+			position: relative;
+		}
+
+		.nav-top__btn:hover::after,
+		.nav-top__btn.is-active::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			bottom: -6px;
+			width: 100%;
+			height: 2px;
+			background: var(--accent);
+		}
+
+		.nav-top__btn:hover {
+			color: var(--hover);
+		}
+
+		.brand {
+			font-weight: 700;
+			font-size: 26px;
+			letter-spacing: 6px;
+			text-decoration: none;
+			color: var(--accent);
+			text-align: center;
+		}
+
+		.brand span {
+			display: block;
+			font-size: 11px;
+			letter-spacing: 4px;
+			font-weight: 400;
+		}
+
+		.search {
+			position: relative;
+			width: 240px;
+		}
+
+		.search input {
+			width: 100%;
+			padding: 10px 36px 10px 40px;
+			border: 1px solid #ddd;
+			font-size: 14px;
+		}
+
+		.search i {
+			position: absolute;
+			left: 12px;
+			top: 50%;
+			transform: translateY(-50%);
+			color: #666;
+			font-size: 18px;
+		}
+
+		/* ---------- level‑2 ---------- */
+		.subnav {
+			border-top: 1px solid #848484;
+		}
+
+		.subnav__list {
+			max-width: 1440px;
+			margin: 0 auto;
+			padding: 10px var(--gap);
+			display: flex;
+			text-decoration: none;
+			gap: 32px;
+			list-style: none;
+		}
+
+		.subnav__link {
+			text-decoration: none;
+			color: #0e0e0e;
+			text-decoration: none;
+			font-size: 15px;
+		}
+
+		.subnav__link:hover,
+		.subnav__link.is-active {
+			color: var(--accent);
+		}
+
+		/* ---------- mega ---------- */
+		.mega {
+			display: none;
+			position: absolute;
+			text-decoration: none;
+			left: 0;
+			right: 0;
+			font-family: 'Helvetica Neue', Arial, sans-serif;
+			top: 100%;
+			background: #fffcf8;
+			line-height: 1.35;
+			border-bottom: 1px solid #828282;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, .05);
+		}
+
+		.mega.show {
+			display: block;
+		}
+
+		.mega__wrap {
+			max-width: 1440px;
+			margin: 0 auto;
+			padding: 32px var(--gap);
+			display: flex;
+			gap: 64px;
+			position: relative;
+		}
+
+		.mega__col {
+			flex: 1;
+			min-width: 160px;
+		}
+
+		.mega__col h4 {
+			margin-bottom: 12px;
+			font-size: 18px;
+			font-weight: 600;
+		}
+
+		.mega__col ul {
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.mega__col a {
+			text-decoration: none;
+			color: var(--accent);
+			font-size: 15px;
+			position: relative;
+		}
+
+		.mega__col a:hover {
+			color: var(--hover);
+		}
+
+		.has-child::after {
+			content: '\f105';
+			font-weight: 400;
+			position: absolute;
+			right: -14px;
+			top: 0;
+			font-size: 12px;
+		}
+
+		/* level‑4 */
+		.mega-lvl2 {
+			position: absolute;
+			top: 0;
+			left: 100%;
+			width: 260px;
+			height: 100%;
+			background: #fff;
+			border-left: 1px solid #848484;
+			padding: 32px var(--gap);
+			display: none;
+			flex-direction: column;
+			gap: 12px;
+		}
+
+		.mega-lvl2 h5 {
+			font-size: 17px;
+			font-weight: 600;
+			margin-bottom: 8px;
+		}
+
+		.mega-lvl2 a {
+			text-decoration: none;
+			color: var(--accent);
+			font-size: 15px;
+		}
+
+		.mega-lvl2 a:hover {
+			color: var(--hover);
+		}
+
+		/* ---------- image block ---------- */
+		.mega__img {
+			flex: 0 0 260px;
+			display: flex;
+			flex-direction: column;
+			gap: 18px;
+			align-items: flex-start;
+		}
+
+		.mega__img img {
+			width: 100%;
+			object-fit: cover;
+		}
+
+		.mega__shop {
+			text-decoration: none;
+			font-size: 16px;
+			color: var(--accent);
+			font-weight: 600;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.mega__shop i {
+			transform: rotate(-45deg);
+		}
+
+		/* ---------- burger ---------- */
+		.burger {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 22px;
+			cursor: pointer;
+			color: var(--accent);
+		}
+
+		@media (max-width:767px) {
+
+			.nav-top,
+			.search,
+			.subnav,
+			.mega {
+				display: none !important;
+			}
+
+			.burger {
+				display: block;
+			}
+
+			.header__row {
+				height: 60px;
+			}
+		}
+
+		/* ---------- mobile menu ---------- */
+		.m-overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, .4);
+			opacity: 0;
+			visibility: hidden;
+			transition: .3s;
+			z-index: 140;
+		}
+
+		.m-overlay.is-open {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.m-menu {
+			position: fixed;
+			top: 0;
+			left: -100%;
+			width: 80%;
+			max-width: 340px;
+			height: 100%;
+			background: #fff;
+			box-shadow: 2px 0 12px rgba(0, 0, 0, .1);
+			overflow-y: auto;
+			transition: left .3s ease;
+			z-index: 150;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.m-menu.is-open {
+			left: 0;
+		}
+
+		.m-menu__head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 18px 20px;
+			border-bottom: 1px solid #eee;
+		}
+
+		.m-menu__head h3 {
+			font-size: 18px;
+			font-weight: 600;
+		}
+
+		.m-close {
+			background: none;
+			border: none;
+			font-size: 22px;
+			cursor: pointer;
+			color: var(--accent);
+		}
+
+		.m-acc {
+			border-bottom: 1px solid #eee;
+		}
+
+		.m-acc summary {
+			list-style: none;
+			padding: 16px 20px;
+			font-size: 15px;
+			font-weight: 600;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.m-acc summary::-webkit-details-marker {
+			display: none;
+		}
+
+		.m-acc ul {
+			padding: 0 26px 12px;
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+		}
+
+		.m-acc a {
+			text-decoration: none;
+			color: var(--accent);
+			font-size: 15px;
+		}
+
+		.m-acc a:hover {
+			color: var(--hover);
+		}
+
+		.noscroll {
+			overflow: hidden;
+			height: 100%;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header class="header">
+		<div class="header__row">
+			<button class="burger" id="burger"><i class="fa-solid fa-bars"></i></button>
+
+			<nav class="nav-top" id="navTop"></nav>
+
+			<a href="#" class="brand"><img width="180px" src="https://tranquil-boba-b4a56b.netlify.app/logo%20birruti.png" alt=""></a>
+
+			<div class="search">
+				<i class="fa-solid fa-magnifying-glass"></i>
+				<input type="search" placeholder="Search">
+			</div>
+		</div>
+
+		<nav class="subnav">
+			<ul class="subnav__list" id="subnavList"></ul>
+		</nav>
+
+		<div class="mega" id="mega">
+			<div class="mega__wrap" id="megaWrap"></div>
+		</div>
+	</header>
+
+	<!-- mobile -->
+	<div class="m-overlay" id="mOverlay"></div>
+	<nav class="m-menu" id="mMenu">
+		<div class="m-menu__head">
+			<h3>Menu</h3>
+			<button class="m-close" id="mClose"><i class="fa-solid fa-xmark"></i></button>
+		</div>
+		<div id="mContent"></div>
+	</nav>
+	<main>
+		<h1 id="subsubcat-title" style="text-align:center; margin: 40px 0 24px;"></h1>
+		<div id="products-grid" class="products-grid"></div>
+	</main>
+	<script>
+		function getSubSubCatIdFromUrl() {
+			const params = new URLSearchParams(window.location.search);
+			return params.get('subsubcat_id');
+		}
+		function getSubSubCatNameFromUrl() {
+			const params = new URLSearchParams(window.location.search);
+			return params.get('subsubcat_name');
+		}
+
+		function loadProductsBySubSubCat() {
+			const id = getSubSubCatIdFromUrl();
+			const name = getSubSubCatNameFromUrl();
+
+			if (!id) {
+				document.getElementById('subsubcat-title').textContent = 'Все товары';
+				document.getElementById('products-grid').innerHTML = '<p>Выберите категорию товаров</p>';
+				return;
+			}
+
+			const category = new URLSearchParams(window.location.search).get('category');
+			const subcategory = new URLSearchParams(window.location.search).get('subcategory');
+			const subsubcatName = new URLSearchParams(window.location.search).get('subsubcat_name');
+			document.getElementById('subsubcat-title').textContent =
+				`${category ? category + ' / ' : ''}${subcategory ? subcategory + ' / ' : ''}${subsubcatName || 'Товары'}`;
+
+			fetch(`http://localhost:8001/api/products/?subsubsubcategory_id=${id}`)
+				.then(res => {
+					if (!res.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return res.json();
+				})
+				.then(products => {
+					const grid = document.getElementById('products-grid');
+					if (products.length === 0) {
+						grid.innerHTML = '<p>Товары не найдены</p>';
+						return;
+					}
+					grid.innerHTML = products.map(p => `
+                <div class="product-card" onclick="window.location.href='/product.html?id=${p.id}'">
+                    <img src="${p.main_image}" alt="${p.title}">
+                    <div class="product-title">${p.title}</div>
+                    <div class="product-price">${p.price}</div>
+                </div>
+            `).join('');
+				})
+				.catch(error => {
+					console.error('Error loading products:', error);
+					document.getElementById('products-grid').innerHTML = '<p>Ошибка при загрузке товаров. Пожалуйста, попробуйте позже.</p>';
+				});
+		}
+
+		// Вызываем функцию при загрузке страницы
+		loadProductsBySubSubCat();
+	</script>
+	<script>
+		/* ---------- DATA ---------- */
+		let menuData = {};
+
+		/* ---------- DOM ---------- */
+		const subnav = document.getElementById('subnavList');
+		const navTopBtns = document.querySelectorAll('.nav-top__btn');
+		const mega = document.getElementById('mega');
+		const megaWrap = document.getElementById('megaWrap');
+
+		/* ---------- helpers ---------- */
+		async function loadMenuData() {
+			try {
+				const response = await fetch('http://localhost:8001/api/shop-menu/');
+				menuData = await response.json();
+				console.log('Loaded menu data:', menuData); // Отладочная информация
+				renderNavTop();
+				const activeCat = getCategoryFromUrl() || Object.keys(menuData)[0];
+				renderSub(activeCat);
+			} catch (error) {
+				console.error('Error loading menu data:', error);
+			}
+		}
+
+		// Загружаем данные при загрузке страницы
+		loadMenuData();
+
+		function renderSub(cat) {
+			console.log('Rendering category:', cat, menuData[cat]); // Отладочная информация
+			if (!menuData[cat]) {
+				console.log('No data for category:', cat);
+				return;
+			}
+			subnav.innerHTML = menuData[cat].list.map(txt => {
+				const subcategory = menuData[cat].subcategories.find(sub => sub.name === txt);
+				if (subcategory && subcategory.subsubcategories && subcategory.subsubcategories.length > 0) {
+					return `<li><a href="#" class="subnav__link" data-sub="${txt}">${txt}</a></li>`;
+				}
+				// Если нет подподкатегорий, делаем ссылку на подкатегорию
+				return `<li><a href="/category-products/?category=${encodeURIComponent(cat)}&subcategory=${encodeURIComponent(txt)}">${txt}</a></li>`;
+			}).join('');
+		}
+
+		function buildLvl2(label, children) {
+			let lvl2 = document.getElementById('megaLvl2');
+			if (!lvl2) {
+				lvl2 = document.createElement('div');
+				lvl2.id = 'megaLvl2';
+				lvl2.className = 'mega-lvl2';
+				megaWrap.appendChild(lvl2);
+			}
+			const subcategoryName = label;
+			lvl2.innerHTML = `
+				<h5>${label}</h5>
+				<ul>${children.map(c => {
+				const subsubcat = subsubcategories.find(ss => ss.name === c);
+				if (subsubcat && subsubcat.id) {
+					return `<li><a href="/category-products/?category=${encodeURIComponent(activeCat)}&subcategory=${encodeURIComponent(subcategoryName)}&subsubcat_id=${subsubcat.id}&subsubcat_name=${encodeURIComponent(subsubcat.name)}">${subsubcat.name}</a></li>`;
+				}
+				return `<li>${c}</li>`;
+			}).join('')}</ul>
+			`;
+			lvl2.style.display = 'flex';
+		}
+
+		function hideLvl2() {
+			const lvl2 = document.getElementById('megaLvl2');
+			if (lvl2) lvl2.style.display = 'none';
+		}
+
+		function renderMega(cat, key) {
+			const obj = menuData[cat].mega ? menuData[cat].mega[key] : null;
+			if (!obj) { mega.classList.remove('show'); return; }
+
+			const subcategory = menuData[cat].subcategories.find(sub => sub.name === key);
+			const subsubcategories = subcategory ? subcategory.subsubcategories : [];
+
+			megaWrap.innerHTML = obj.cols.map(col => {
+				const subcategoryName = key;
+				const lis = col.items.map(i => {
+					const subsubcat = subsubcategories.find(ss => ss.name === i);
+					if (subsubcat && subsubcat.id) {
+						return `<li><a href="/category-products/?category=${encodeURIComponent(cat)}&subcategory=${encodeURIComponent(subcategoryName)}&subsubcat_id=${subsubcat.id}&subsubcat_name=${encodeURIComponent(subsubcat.name)}">${subsubcat.name}</a></li>`;
+					}
+					return `<li>${i}</li>`;
+				}).join('');
+				return `<div class="mega__col"><h4>${col.title}</h4><ul>${lis}</ul></div>`;
+			}).join('');
+
+			/* image column */
+			if (obj.image) {
+				megaWrap.insertAdjacentHTML('beforeend', `
+					<div class="mega__img">
+						<a href="${obj.image.link}"><img src="${obj.image.src}" alt="${obj.image.alt}"></a>
+						<a href="${obj.image.link}" class="mega__shop"><i class="fa-solid fa-arrow-up"></i>${obj.image.caption}</a>
+					</div>
+				`);
+			}
+
+			mega.classList.add('show');
+		}
+
+		/* ---------- level‑1 events ---------- */
+		navTopBtns.forEach(btn => {
+			btn.onclick = () => {
+				document.querySelector('.nav-top__btn.is-active').classList.remove('is-active');
+				btn.classList.add('is-active');
+				renderSub(btn.dataset.cat);
+				mega.classList.remove('show');
+			};
+		});
+
+		/* ---------- level‑2 events ---------- */
+		subnav.addEventListener('mouseover', e => {
+			const l = e.target.closest('.subnav__link');
+			if (l) {
+				const activeCat = document.querySelector('.nav-top__btn.is-active').dataset.cat;
+				renderMega(activeCat, l.dataset.sub);
+			}
+		});
+
+		/* ---------- level‑3 → level‑4 events ---------- */
+		megaWrap.addEventListener('mouseover', e => {
+			const link = e.target.closest('.has-child');
+			if (link) buildLvl2(link.textContent.trim(), JSON.parse(link.dataset.deep));
+		});
+
+		/* hide lvl‑4 when pointer leaves both mega and lvl‑4 */
+		mega.addEventListener('mouseleave', () => {
+			mega.classList.remove('show');
+			hideLvl2();
+		});
+
+		/* ---------- MOBILE ---------- */
+		const burger = document.getElementById('burger');
+		const mMenu = document.getElementById('mMenu');
+		const mOverlay = document.getElementById('mOverlay');
+		const mClose = document.getElementById('mClose');
+		const mContent = document.getElementById('mContent');
+		let startX = null;
+
+		function buildMobile() {
+			mContent.innerHTML = Object.entries(menuData).map(([cat, val]) => {
+				const subItems = val.list.map(sub => {
+					const v = (val.mega && val.mega[sub]) ? val.mega[sub] : null;
+					if (v) {
+						/* вложенный аккордеон */
+						const deepCols = v.cols.map(col => `
+							<li><strong>${col.title}</strong>
+								<ul style="margin-top:6px">${col.items.map(i => {
+							if (typeof i === 'string') return `<li><a href="/category-products/?category=${encodeURIComponent(cat)}&subsubcat_id=${encodeURIComponent(i)}&subsubcat_name=${encodeURIComponent(i)}">${i}</a></li>`;
+							return `<li><a href="/category-products/?category=${encodeURIComponent(cat)}&subsubcat_id=${encodeURIComponent(i.children[0])}&subsubcat_name=${encodeURIComponent(i.children[0])}">${i.label}</a></li>`;
+						}).join('')}</ul>
+							</li>`).join('');
+						return `<li>
+							<details class="m-acc">
+								<summary>${sub}</summary>
+								<ul>${deepCols}</ul>
+							</details>
+						</li>`;
+					}
+					return `<li><a href="/category-products/?category=${encodeURIComponent(cat)}&subsubcat_id=${encodeURIComponent(sub)}&subsubcat_name=${encodeURIComponent(sub)}">${sub}</a></li>`;
+				}).join('');
+
+				return `<details class="m-acc">
+					<summary>${cat.toUpperCase()}</summary>
+					<ul>${subItems}</ul>
+				</details>`;
+			}).join('');
+		}
+		buildMobile();
+
+		const openBurger = () => {
+			mMenu.classList.add('is-open');
+			mOverlay.classList.add('is-open');
+			document.body.classList.add('noscroll');
+		};
+		const closeBurger = () => {
+			mMenu.classList.remove('is-open');
+			mOverlay.classList.remove('is-open');
+			document.body.classList.remove('noscroll');
+		};
+
+		burger.onclick = openBurger;
+		mClose.onclick = closeBurger;
+		mOverlay.onclick = closeBurger;
+
+		mMenu.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+		mMenu.addEventListener('touchmove', e => {
+			if (startX !== null) {
+				const diff = e.touches[0].clientX - startX;
+				if (diff > 60) { closeBurger(); startX = null; }
+			}
+		});
+		mMenu.addEventListener('touchend', () => startX = null);
+
+		function getCategoryFromUrl() {
+			const params = new URLSearchParams(window.location.search);
+			return params.get('category');
+		}
+
+		function renderNavTop() {
+			const navTop = document.getElementById('navTop');
+			navTop.innerHTML = '';
+			const cats = Object.keys(menuData);
+			cats.forEach((cat) => {
+				const a = document.createElement('a');
+				a.className = 'nav-top__btn' + (cat.toLowerCase() === 'men' ? ' is-active' : '');
+				a.dataset.cat = cat;
+				a.textContent = menuData[cat].name ? menuData[cat].name.toUpperCase() : cat.toUpperCase();
+				if (menuData[cat].link) {
+					a.href = menuData[cat].link;
+					a.onclick = null; // обычный переход
+				} else {
+					a.href = `/category-products/?category=${encodeURIComponent(cat)}`;
+					a.onclick = function (e) {
+						e.preventDefault();
+						renderSub(cat);
+						mega.classList.remove('show');
+						window.history.replaceState({}, '', `/category-products/?category=${encodeURIComponent(cat)}`);
+					};
+				}
+				navTop.appendChild(a);
+			});
+		}
+
+	</script>
+	<script>
+		/* ---------- DATA ---------- */
+		let menuData = {};
+
+		/* ---------- DOM ---------- */
+		const subnav = document.getElementById('subnavList');
+		const navTopBtns = document.querySelectorAll('.nav-top__btn');
+		const mega = document.getElementById('mega');
+		const megaWrap = document.getElementById('megaWrap');
+
+		/* ---------- helpers ---------- */
+		async function loadMenuData() {
+			try {
+				const response = await fetch('http://localhost:8001/api/shop-menu/');
+				menuData = await response.json();
+				console.log('Loaded menu data:', menuData); // Отладочная информация
+				renderNavTop();
+				const activeCat = getCategoryFromUrl() || Object.keys(menuData)[0];
+				renderSub(activeCat);
+			} catch (error) {
+				console.error('Error loading menu data:', error);
+			}
+		}
+
+		// Загружаем данные при загрузке страницы
+		loadMenuData();
+
+		function renderSub(cat) {
+			console.log('Rendering category:', cat, menuData[cat]);
+			if (!menuData[cat]) {
+				console.log('No data for category:', cat);
+				return;
+			}
+			subnav.innerHTML = menuData[cat].list.map(txt => {
+				const subcategory = menuData[cat].subcategories.find(sub => sub.name === txt);
+				if (subcategory && subcategory.subsubcategories && subcategory.subsubcategories.length > 0) {
+					return `<li><a href="#" class="subnav__link" data-sub="${txt}">${txt}</a></li>`;
+				}
+				// Если нет подподкатегорий, не делаем ссылку
+				return `<li>${txt}</li>`;
+			}).join('');
+		}
+
+		function buildLvl2(label, children) {
+			let lvl2 = document.getElementById('megaLvl2');
+			if (!lvl2) {
+				lvl2 = document.createElement('div');
+				lvl2.id = 'megaLvl2';
+				lvl2.className = 'mega-lvl2';
+				megaWrap.appendChild(lvl2);
+			}
+
+			// Найди активную категорию и подкатегорию
+			const activeCat = document.querySelector('.nav-top__btn.is-active').dataset.cat;
+			const subcategory = menuData[activeCat].subcategories.find(sub => sub.name === label);
+			const subsubcategories = subcategory ? subcategory.subsubcategories : [];
+
+			lvl2.innerHTML = `
+					<h5>${label}</h5>
+					<ul>${children.map(c => {
+				const subsubcat = subsubcategories.find(ss => ss.name === c);
+				if (subsubcat && subsubcat.id) {
+					return `<li><a href="/category-products/?subsubcat_id=${subsubcat.id}&subsubcat_name=${encodeURIComponent(subsubcat.name)}">${subsubcat.name}</a></li>`;
+				}
+				// Если нет id — не делаем ссылку
+				return `<li>${c}</li>`;
+			}).join('')}</ul>
+				`;
+			lvl2.style.display = 'flex';
+		}
+
+		function hideLvl2() {
+			const lvl2 = document.getElementById('megaLvl2');
+			if (lvl2) lvl2.style.display = 'none';
+		}
+
+		function renderMega(cat, key) {
+			const obj = menuData[cat].mega ? menuData[cat].mega[key] : null;
+			if (!obj) { mega.classList.remove('show'); return; }
+
+			// Найди подкатегорию по key
+			const subcategory = menuData[cat].subcategories.find(sub => sub.name === key);
+			const subsubcategories = subcategory ? subcategory.subsubcategories : [];
+
+			megaWrap.innerHTML = obj.cols.map(col => {
+				const lis = col.items.map(i => {
+					const subsubcat = subsubcategories.find(ss => ss.name === i);
+					if (subsubcat && subsubcat.id) {
+						return `<li><a href="/category-products/?subsubcat_id=${subsubcat.id}&subsubcat_name=${encodeURIComponent(subsubcat.name)}" class="mega__link">${subsubcat.name}</a></li>`;
+					}
+					// Если нет id — не делаем ссылку
+					return `<li>${i}</li>`;
+				}).join('');
+				return `<div class="mega__col"><h4>${col.title}</h4><ul>${lis}</ul></div>`;
+			}).join('');
+
+			/* image column */
+			if (obj.image) {
+				megaWrap.insertAdjacentHTML('beforeend', `
+					<div class="mega__img">
+						<a href="${obj.image.link}"><img src="${obj.image.src}" alt="${obj.image.alt}"></a>
+						<a href="${obj.image.link}" class="mega__shop"><i class="fa-solid fa-arrow-up"></i>${obj.image.caption}</a>
+					</div>
+				`);
+			}
+
+			mega.classList.add('show');
+		}
+
+		/* ---------- level‑1 events ---------- */
+		navTopBtns.forEach(btn => {
+			btn.onclick = () => {
+				document.querySelector('.nav-top__btn.is-active').classList.remove('is-active');
+				btn.classList.add('is-active');
+				renderSub(btn.dataset.cat);
+				mega.classList.remove('show');
+			};
+		});
+
+		/* ---------- level‑2 events ---------- */
+		subnav.addEventListener('mouseover', e => {
+			const l = e.target.closest('.subnav__link');
+			if (l) {
+				const activeCat = document.querySelector('.nav-top__btn.is-active').dataset.cat;
+				renderMega(activeCat, l.dataset.sub);
+			}
+		});
+
+		/* ---------- level‑3 → level‑4 events ---------- */
+		megaWrap.addEventListener('mouseover', e => {
+			const link = e.target.closest('.has-child');
+			if (link) buildLvl2(link.textContent.trim(), JSON.parse(link.dataset.deep));
+		});
+
+		/* hide lvl‑4 when pointer leaves both mega and lvl‑4 */
+		mega.addEventListener('mouseleave', () => {
+			mega.classList.remove('show');
+			hideLvl2();
+		});
+
+		/* ---------- MOBILE ---------- */
+		const burger = document.getElementById('burger');
+		const mMenu = document.getElementById('mMenu');
+		const mOverlay = document.getElementById('mOverlay');
+		const mClose = document.getElementById('mClose');
+		const mContent = document.getElementById('mContent');
+		let startX = null;
+
+		function buildMobile() {
+			mContent.innerHTML = Object.entries(menuData).map(([cat, val]) => {
+				const subItems = val.list.map(sub => {
+					const v = (val.mega && val.mega[sub]) ? val.mega[sub] : null;
+					if (v) {
+						/* вложенный аккордеон */
+						const deepCols = v.cols.map(col => `
+							<li><strong>${col.title}</strong>
+								<ul style="margin-top:6px">${col.items.map(i => {
+							const subsubcat = val.subcategories.find(sub2 => sub2.name === sub)?.subsubcategories.find(ss => ss.name === i);
+							if (subsubcat && subsubcat.id) {
+								return `<li><a href="/category-products/?subsubcat_id=${subsubcat.id}&subsubcat_name=${encodeURIComponent(subsubcat.name)}">${subsubcat.name}</a></li>`;
+							}
+							// Если нет id — не делаем ссылку
+							return `<li>${i}</li>`;
+						}).join('')}</ul>
+							</li>`).join('');
+						return `<li>
+							<details class="m-acc">
+								<summary>${sub}</summary>
+								<ul>${deepCols}</ul>
+							</details>
+						</li>`;
+					}
+					return `<li>${sub}</li>`;
+				}).join('');
+
+				return `<details class="m-acc">
+					<summary>${cat.toUpperCase()}</summary>
+					<ul>${subItems}</ul>
+				</details>`;
+			}).join('');
+		}
+		buildMobile();
+
+		const openBurger = () => {
+			mMenu.classList.add('is-open');
+			mOverlay.classList.add('is-open');
+			document.body.classList.add('noscroll');
+		};
+		const closeBurger = () => {
+			mMenu.classList.remove('is-open');
+			mOverlay.classList.remove('is-open');
+			document.body.classList.remove('noscroll');
+		};
+
+		burger.onclick = openBurger;
+		mClose.onclick = closeBurger;
+		mOverlay.onclick = closeBurger;
+
+		mMenu.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+		mMenu.addEventListener('touchmove', e => {
+			if (startX !== null) {
+				const diff = e.touches[0].clientX - startX;
+				if (diff > 60) { closeBurger(); startX = null; }
+			}
+		});
+		mMenu.addEventListener('touchend', () => startX = null);
+
+		function getCategoryFromUrl() {
+			const params = new URLSearchParams(window.location.search);
+			return params.get('category');
+		}
+
+		function renderNavTop() {
+			const navTop = document.getElementById('navTop');
+			navTop.innerHTML = '';
+			const cats = Object.keys(menuData);
+			cats.forEach((cat) => {
+				const a = document.createElement('a');
+				a.className = 'nav-top__btn' + (cat.toLowerCase() === 'men' ? ' is-active' : '');
+				a.dataset.cat = cat;
+				a.textContent = menuData[cat].name ? menuData[cat].name.toUpperCase() : cat.toUpperCase();
+				if (menuData[cat].link) {
+					a.href = menuData[cat].link;
+					a.onclick = null; // обычный переход
+				} else {
+					a.href = `/category-products/?category=${encodeURIComponent(cat)}`;
+					a.onclick = function (e) {
+						e.preventDefault();
+						renderSub(cat);
+						mega.classList.remove('show');
+						window.history.replaceState({}, '', `/category-products/?category=${encodeURIComponent(cat)}`);
+					};
+				}
+				navTop.appendChild(a);
+			});
+		}
+	</script>
+	<script>
+		// Пример запроса к API для получения всех товаров men
+		function loadAllMenProducts() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const subsubcatId = urlParams.get('subsubcat_id');
+
+			let url = 'http://localhost:8001/api/products/?gender=men';
+			if (subsubcatId && subsubcatId !== 'undefined') {
+				url += `&subsubcat_id=${subsubcatId}`;
+			}
+
+			fetch(url)
+				.then(res => res.json())
+				.then(products => {
+					console.log(products);
+					const grid = document.getElementById('products-grid');
+					grid.innerHTML = products.map(p => `
+					<div class="product-card" onclick="window.location.href='/product.html?id=${p.id}'">
+						<img src="${p.main_image}" alt="${p.title}">
+						<div class="product-title">${p.title}</div>
+						<div class="product-price">${p.price}</div>
+					</div>
+				`).join('');
+				})
+				.catch(error => {
+					console.error('Error loading products:', error);
+					const grid = document.getElementById('products-grid');
+					grid.innerHTML = '<p>Error loading products. Please try again later.</p>';
+				});
+		}
+
+		// Вызови функцию при загрузке страницы
+		loadAllMenProducts();
+	</script>
+</body>
+
+</html>
