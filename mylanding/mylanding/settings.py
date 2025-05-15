@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     'nested_admin',
-     'content', 
+    'mylanding.content', 
     
 ]
 
