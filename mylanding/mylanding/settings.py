@@ -18,7 +18,7 @@ import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-sys.path.insert(0, os.path.join(BASE_DIR, "mylanding"))
+sys.path.insert(0, str(BASE_DIR.parent))
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     'nested_admin',
-    'mylanding.content', 
+    'content',
     
 ]
 
@@ -64,7 +64,7 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-ROOT_URLCONF = 'mylanding.mylanding.urls'
+ROOT_URLCONF = 'mylanding.urls'
 
 TEMPLATES = [
     {
@@ -82,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mylanding.mylanding.wsgi.application'
+WSGI_APPLICATION = 'mylanding.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
