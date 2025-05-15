@@ -1,1 +1,1 @@
-web: gunicorn mylanding.mylanding.wsgi:application
+web: gunicorn mylanding.wsgi:application
